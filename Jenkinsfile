@@ -16,6 +16,7 @@ pipeline {
             steps { 
                 script{
                  app = docker.build("k8s-app")
+                 sh 'docker tag k8s-app:latest 550992133034.dkr.ecr.ap-south-1.amazonaws.com/k8s-app:latest'
                 }
             }
         }
