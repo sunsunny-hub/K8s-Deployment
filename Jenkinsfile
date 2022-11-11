@@ -24,15 +24,16 @@ pipeline {
                  echo 'Empty'
             }
         }
-        stage('Deploy') {
-            steps {
-                script{
-                        docker.withRegistry('https://550992133034.dkr.ecr.ap-south-1.amazonaws.com', 'ecr:ap-south-1:redis-aws-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
-                    }
-                }
-            }
+        stage('Pushing to ECR') {
+            steps{  
+                script {
+                sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 550992133034.dkr.ecr.ap-south-1.amazonaws.com'
+                sh 'docker push 550992133034.dkr.ecr.ap-south-1.amazonaws.com/redis:latest'
+         }
+
+        }
+
+      }
         }
     }
 }
