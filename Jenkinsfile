@@ -15,7 +15,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("k8s-app")
+                 app = docker.build("k8s-app:${env.BUILD_NUMBER}")
                  sh "docker tag k8s-app:${env.BUILD_NUMBER} 550992133034.dkr.ecr.ap-south-1.amazonaws.com/k8s-app:${env.BUILD_NUMBER}"
                 }
             }
