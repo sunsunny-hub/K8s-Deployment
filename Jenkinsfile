@@ -15,15 +15,11 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                 app = docker.build("redis")
+                 app = docker.build("k8s-app")
                 }
             }
         }
-        stage('Test'){
-            steps {
-                 echo 'Empty'
-            }
-        }
+
         stage('Pushing to ECR') {
             steps{  
                 script {
