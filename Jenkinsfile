@@ -31,9 +31,13 @@ pipeline {
       }    
         stage('K8S Deploy') {
         steps{   
-            sh 'kubectl apply -f  deployment.yaml'
-            sh 'kubectl apply -f  service.yaml'
+            script {
+                withKubeConfig([credentialsId: 'k8s', serverUrl: '']) {
+                sh ('kubectl apply -f  deployment.yaml')
+                sh ('kubectl apply -f  service.yaml')
+                }
+            }
         }
-      }
+       }
     }
 }
