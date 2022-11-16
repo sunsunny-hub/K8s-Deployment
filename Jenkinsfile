@@ -33,6 +33,8 @@ pipeline {
         steps{   
             script {
                 withCredentials([file(credentialsId: 'k8s', variable: 'KUBECONFIG')]) {
+                sh 'aws eks --region ap-south-1 update-kubeconfig --name redis-cluster-new'
+                sh 'export KUBECONFIG=~/.kube/config'
                 sh 'kubectl apply -f  deployment.yaml'
                 sh 'kubectl apply -f  service.yaml'
                 }
